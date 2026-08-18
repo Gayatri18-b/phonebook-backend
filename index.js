@@ -5,6 +5,9 @@ const app = express()
 // Middleware to parse incoming JSON data
 app.use(express.json())
 
+const cors = require('cors')
+app.use(cors())
+
 // Exercise 3.8: Define a custom morgan token to print the request body
 morgan.token('body', (req) => {
   return req.method === 'POST' ? JSON.stringify(req.body) : ''
