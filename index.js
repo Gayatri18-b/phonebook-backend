@@ -1,11 +1,11 @@
 const express = require('express')
+const cors = require('cors')
 const morgan = require('morgan')
 const app = express()
 
 // Middleware to parse incoming JSON data
+app.use(express.static('dist'))
 app.use(express.json())
-
-const cors = require('cors')
 app.use(cors())
 
 // Exercise 3.8: Define a custom morgan token to print the request body
@@ -13,7 +13,7 @@ morgan.token('body', (req) => {
   return req.method === 'POST' ? JSON.stringify(req.body) : ''
 })
 
-// Exercise 3.7 & 3.8: Use morgan with custom layout showing Method, Path, Status, Res-Time, and Body
+// Exercise 3.9 & 3.11: Use morgan with custom layout showing Method, Path, Status, Res-Time, and Body
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
 let persons = [
