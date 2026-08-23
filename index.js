@@ -102,12 +102,14 @@ const unknownEndpoint = (request, response) => {
 }
 app.use(unknownEndpoint)
 
-// Exercise 3.16: Centralized error handling middleware
+// Exercise 3.19-3.20:  error handling middleware
 const errorHandler = (error, request, response, next) => {
   console.error(error.message)
 
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message })
   }
 
   next(error)
